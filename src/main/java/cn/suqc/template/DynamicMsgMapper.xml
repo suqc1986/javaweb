@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.cnki.kspace.dao.DynamicMsgDao">
+   <resultMap type="org.cnki.kspace.content.DynamicMsg" id="DynamicMsg">
+      <result property="id" column="id" />
+      <result property="dtype" column="dtype" />
+      <result property="resourceId" column="resource_id" />
+      <result property="epersonId" column="eperson_id" />
+      <result property="commId" column="comm_id" />
+      <result property="freqCnt" column="freqCnt" />
+      <result property="issue" column="issue" />
+      <result property="createtime" column="createtime" />
+      <result property="dstatus" column="dstatus" />
+   </resultMap>
+
+   <select id="query" parameterType="java.util.Map" resultMap="DynamicMsg">
+         select * from dynamic_msg
+         <trim prefix="WHERE" prefixOverrides="AND|OR">
+        <if test="id != null">
+            and id = #{id}
+        </if>
+        <if test="dtype != null">
+          and dtype = #{dtype}
+        </if>
+        <if test="resourceId != null">
+          and resource_id = #{resourceId}
+        </if>
+        <if test="epersonId != null">
+          and eperson_id = #{epersonId}
+        </if>
+        <if test="commId != null">
+          and comm_id = #{commId}
+        </if>
+        <if test="freqCnt != null">
+          and freqCnt = #{freqCnt}
+        </if>
+        <if test="issue != null and issue != ''">
+          and issue = #{issue}
+        </if>
+        <if test="createtime != null">
+          and DATE_FORMAT(createtime,'%Y-%m-%d') = #{createtime}
+        </if>
+        <if test="dstatus != null">
+          and dstatus = #{dstatus}
+        </if>
+      </trim>
+      order by createtime desc
+   </select>
+   
+   <select id="queryMyDynamic" parameterType="java.util.Map" resultMap="DynamicMsg">
+      select * from dynamic_msg
+      where eperson_id = #{epersonId}
+      and dtype in 
+         <foreach collection="typeList" separator="," item="dtype" open="(" close=")">
+            #{dtype}
+         </foreach>
+      order by createtime desc
+   </select>
+   
+   <select id="queryFollowEPersonDynamic" parameterType="java.util.Map" resultMap="DynamicMsg">
+      select * from dynamic_msg
+      where dtype = #{dtype}
+      and eperson_id in 
+         <foreach collection="epersonIdList" separator="," item="epersonId" open="(" close=")">
+            #{epersonId}
+         </foreach>
+      order by createtime desc
+   </select>
+   
+   <select id="queryCommScholarDynamic" parameterType="java.util.Map" resultMap="DynamicMsg">
+      select * from dynamic_msg
+      where dtype = #{dtype}
+      and eperson_id not in 
+         <foreach collection="epersonIdList" separator="," item="epersonId" open="(" close=")">
+            #{epersonId}
+         </foreach>
+      and comm_id in 
+         <foreach collection="commIdList" separator="," item="commId" open="(" close=")">
+            #{commId}
+         </foreach>
+      order by createtime desc
+   </select>
+   
+   <select id="queryMechanismDynamic" parameterType="java.util.Map" resultMap="DynamicMsg">
+      select * from dynamic_msg
+      where dtype = #{dtype}
+      and eperson_id is null
+      and comm_id is null
+      order by createtime desc
+   </select>
+   
+   <select id="queryItemDynamic" parameterType="java.util.Map" resultMap="DynamicMsg">
+      select * from dynamic_msg
+      where dtype = #{dtype}
+      group by resource_id
+      order by createtime desc
+   </select>
+   
+   <insert id="create" parameterType="DynamicMsg">
+      insert into dynamic_msg
+      <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+          id,
+        </if>
+        <if test="dtype != null">
+          dtype,
+        </if>
+        <if test="resourceId != null">
+          resource_id,
+        </if>
+        <if test="epersonId != null">
+          eperson_id,
+        </if>
+        <if test="commId != null">
+          comm_id,
+        </if>
+        <if test="freqCnt != null">
+          freqCnt,
+        </if>
+        <if test="issue != null and issue != ''">
+          issue,
+        </if>
+        <if test="createtime != null">
+          createtime,
+        </if>
+        <if test="dstatus != null">
+          dstatus,
+        </if>
+      </trim>
+      <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+          #{id, jdbcType=INTEGER},
+        </if>
+        <if test="dtype != null">
+          #{dtype, jdbcType=INTEGER},
+        </if>
+        <if test="resourceId != null">
+          #{resourceId, jdbcType=INTEGER},
+        </if>
+        <if test="epersonId != null">
+          #{epersonId, jdbcType=INTEGER},
+        </if>
+        <if test="commId != null">
+          #{commId,jdbcType=INTEGER},
+        </if>
+        <if test="freqCnt != null">
+          #{freqCnt, jdbcType=INTEGER},
+        </if>
+        <if test="issue != null and issue != ''">
+          #{issue, jdbcType=VARCHAR},
+        </if>
+        <if test="createtime != null">
+          #{createtime},
+        </if>
+        <if test="dstatus != null">
+          #{dstatus},
+        </if>
+      </trim>
+   </insert>
+   
+   <delete id="delete" parameterType="java.util.Map">
+      delete from dynamic_msg
+      <trim prefix="WHERE" prefixOverrides="AND|OR">
+          <if test="id != null">
+            and id = #{id}
+        </if>
+        <if test="dtype != null">
+          and dtype = #{dtype}
+        </if>
+        <if test="resourceId != null">
+           <if test="resourceId instanceof java.lang.Integer">
+             and resource_id = #{resourceId}
+           </if>
+          <if test="resourceId instanceof java.util.Collection and resourdeId.size() > 0">
+            and resource_id in 
+            <foreach collection="resourceId" item="item" open="(" close=")" separator=",">
+               #{item}
+            </foreach>
+          </if>
+        </if>
+        <if test="epersonId != null">
+          <if test="epersonId instanceof java.lang.Integer">
+             and eperson_id = #{epersonId}
+          </if>
+          <if test="epersonId instanceof java.util.Collection and epersonId.size() > 0">
+               and eperson_id in 
+               <foreach collection="epersonId" separator="," item="item" open="(" close=")">
+                  #{item}
+               </foreach>
+          </if>
+        </if>
+        <if test="commId != null">
+          and comm_id = #{commId}
+        </if>
+        <if test="freqCnt != null">
+          and freqCnt = #{freqCnt}
+        </if>
+        <if test="issue != null and issue != ''">
+          and issue = #{issue}
+        </if>
+        <if test="createtime != null">
+          and createtime = #{createtime}
+        </if>
+        <if test="dstatus != null">
+          and dstatus = #{dstatus}
+        </if>
+      </trim>
+   </delete>
+   
+   <update id="update" parameterType="DynamicMsg">
+      update dynamic_msg
+         <set>
+           <if test="dtype != null">
+             dtype = #{dtype},
+           </if>
+           <if test="resourceId != null">
+             resource_id = #{resourceId},
+           </if>
+           <if test="epersonId != null">
+             eperson_id = #{epersonId},
+           </if>
+           <if test="commId != null">
+             comm_id = #{commId},
+           </if>
+           <if test="freqCnt != null">
+             freqCnt = #{freqCnt},
+           </if>
+           <if test="issue != null and issue != ''">
+             issue = #{issue},
+           </if>
+           <if test="createtime != null">
+             createtime = #{createtime},
+           </if>
+           <if test="dstatus != null">
+             dstatus = #{dstatus},
+           </if>
+         </set>
+         <where>
+            id = #{id}
+         </where>
+   </update>
+
+   <select id="getLastFreqCnt" parameterType="java.util.Map" resultMap="DynamicMsg">
+      SELECT dtype,resource_id,eperson_id,comm_id,freqCnt,issue FROM `dynamic_msg`
+         <trim prefix="WHERE" prefixOverrides="AND|OR">
+            <if test="dtype != null">
+              and dtype = #{dtype}
+            </if>
+            <if test="resourceId != null">
+              and resource_id = #{resourceId}
+            </if>
+         </trim>
+         GROUP BY `createtime` ORDER BY `createtime` DESC LIMIT 1
+   </select>
+   
+   <select id="hasItem" parameterType="java.util.Map" resultType="java.lang.Integer">
+      SELECT count(1) FROM `dynamic_msg`
+      <trim prefix="WHERE" prefixOverrides="AND|OR">
+         <if test="dtype != null">
+           and dtype = #{dtype}
+         </if>
+         <if test="resourceId != null">
+           and resource_id = #{resourceId}
+         </if>
+      </trim>
+   </select>
+
+   <update id="updateDStaus">
+      update dynamic_msg set dstatus = #{dstatus}
+      <trim prefix="WHERE" prefixOverrides="AND|OR">
+         <if test="resourceId != null">
+           and resource_id = #{resourceId}
+         </if>
+      </trim>
+   </update>
+
+   <insert id="createIfNoExist" parameterType="DynamicMsg">
+      INSERT INTO dynamic_msg(dtype, resource_id, eperson_id) SELECT NULL, #{resourceId}, #{epersonId} FROM DUAL WHERE NOT EXISTS
+         (SELECT dtype, resource_id FROM dynamic_msg WHERE dtype is NULL AND resource_id = #{resourceId})
+   </insert>
+</mapper>
