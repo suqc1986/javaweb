@@ -19,7 +19,7 @@ public class MyContextListener implements ServletContextListener {
      * 服务器启动时被调用
      */
     @Override
-    public void contextDestroyed(ServletContextEvent arg0) {
+    public void contextDestroyed(ServletContextEvent event) {
         //记录启动时间
         ApplicationConstants.SERVER_START_DATE = new Date();
     }
@@ -28,7 +28,7 @@ public class MyContextListener implements ServletContextListener {
      * 服务器关闭时被调用
      */
     @Override
-    public void contextInitialized(ServletContextEvent arg0) {
+    public void contextInitialized(ServletContextEvent event) {
         //保存数据到硬盘
         // TODO Auto-generated method stub
     }

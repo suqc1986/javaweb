@@ -6,15 +6,15 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class ItemEventService implements  EventService {
     private Map<String,EventListener> listenersMap = new ConcurrentHashMap<String,EventListener>();
-    @Override
-    public void fireEvent(EventObject event) {
-        for(EventListener listener:listenersMap.values()){
-            try {
-                listener.receiveEvent(event);
-            } catch (Exception e) {
-                e.printStackTrace();
+        @Override
+        public void fireEvent(EventObject event) {
+            for(EventListener listener:listenersMap.values()){
+                try {
+                    listener.receiveEvent(event);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
-        }
     }
 
     @Override

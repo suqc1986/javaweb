@@ -26,7 +26,7 @@ public class MyRequestListener implements ServletRequestListener {
      */
     @Override
     public void requestInitialized(ServletRequestEvent event) {
-        HttpServletRequest request = (HttpServletRequest) event;
+        HttpServletRequest request = (HttpServletRequest) event.getServletRequest();
         // 客户端ip
         String ip = request.getRemoteAddr();
         // 访问的URL地址
