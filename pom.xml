@@ -31,11 +31,17 @@
     <lucene.version>4.10.2</lucene.version>
     <solr.version>4.10.2</solr.version>
     <junit.version>4.10</junit.version>
+    <guava.version>18.0</guava.version>
     <webserver.port>8080</webserver.port>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <downloadSources>false</downloadSources>
   </properties>
   <dependencies>
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>${guava.version}</version>
+    </dependency>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
