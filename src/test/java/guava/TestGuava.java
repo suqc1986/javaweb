@@ -4,15 +4,31 @@ import com.google.common.base.Joiner;
 import com.google.common.base.Stopwatch;
 import com.google.common.cache.*;
 import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Lists;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 public class TestGuava {
+    @Test
+    public void test5(){
+        System.out.println(Test.class.getName());
+        List<int[]> list = Lists.newArrayList();
+        LinkedList<Integer> events = new LinkedList<Integer>();
+        events.add(1);
+        events.add(2);
+        events.add(3);
+        events.add(4);
+        System.out.println("-------");
+        System.out.println(events.poll());
+        System.out.println(events);
+    }
     @Test
     public void test4() throws Exception{
         // 缓存接口这里是LoadingCache，LoadingCache在缓存项不存在时可以自动加载缓存
