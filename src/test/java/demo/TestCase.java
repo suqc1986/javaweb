@@ -1,10 +1,22 @@
 package demo;
 
+import com.google.common.collect.Lists;
 import org.junit.Test;
 
 import java.util.*;
 
 public class TestCase {
+    @Test
+    //TODO 截取集合   返回新集合
+    public void test2(){
+        List<String> list = Lists.newArrayList();
+        list.add("A");
+        list.add("B");
+        list.add("C");
+        list.add("D");
+        System.out.println(list.subList(1,3));//[B, C]
+        System.out.println(list);//[A, B, C, D]
+    }
     @Test
     //TODO 自义定类型排序   按时间倒序排序
     public void test1(){
