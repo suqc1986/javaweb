@@ -8,4 +8,12 @@
     <select id="getAllMap" parameterType="java.util.Map" resultType="java.util.Map"  >
         select * from people
     </select>
+
+    <select id="getAllList2" parameterType="java.util.Map" resultType="java.util.Map"  >
+        SELECT text_value as code,COUNT(1) as cnt FROM metadatavalue
+        WHERE resource_type_id = 7
+        AND metadata_field_id = 118
+        GROUP BY text_value
+    </select>
+
 </mapper>

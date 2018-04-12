@@ -10,6 +10,8 @@ import java.util.Map;
 @Repository
 public interface AllDao extends MyBatisBaseDao<Object>{
     public List<Map<String,String>> getAllList(Map<String,Object> params, PageBounds pb);
+
+    public List<Map<String,String>> getAllList2(Map<String,Object> params, PageBounds pb);
     @MapKey("id")
     public Map<String,Map<String,String>> getAllMap(Map<String,Object> params, PageBounds pb);
 }

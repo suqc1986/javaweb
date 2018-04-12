@@ -7,6 +7,11 @@ import java.util.*;
 
 public class TestCase {
     @Test
+    public void test3(){
+        Long n = new Long(10L);
+        System.out.println(Integer.parseInt(n.toString()));
+    }
+    @Test
     //TODO 截取集合   返回新集合
     public void test2(){
         List<String> list = Lists.newArrayList();

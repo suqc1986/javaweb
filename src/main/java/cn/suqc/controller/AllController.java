@@ -19,6 +19,28 @@ import java.util.Map;
 public class AllController {
     @Autowired
     private AllDao allDao;
+    @RequestMapping("/getAllList2")
+    @ResponseBody
+    public Map<String,Integer> getAllList2(HttpServletRequest request) throws Exception{
+        Integer page = null;
+        Integer pageSize = null;
+        try {
+            page = Integer.parseInt(request.getParameter("page"));
+            pageSize = Integer.parseInt(request.getParameter("pageSize"));
+        } catch (NumberFormatException e) {
+            page = 1;
+            pageSize = 10;
+        }
+        PageBounds pb = new PageBounds(page,pageSize);
+        Map<String,Integer> newMap = new HashMap<String,Integer>();
+        List<Map<String, String>> list = allDao.getAllList2(null,new PageBounds(page,pageSize));
+        for(Map<String,String> map:list){
+            newMap.put(map.get("code").toString(), Integer.parseInt(map.get("cnt")));//map.get("cnt").toString() 就会报错  Long->String 不知道为啥
+        }
+        return newMap;
+    }
+
+
     @RequestMapping("/getAllList")
     @ResponseBody
     public List<Map<String,String>> getAllList(HttpServletRequest request) throws Exception{
