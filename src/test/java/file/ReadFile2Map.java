@@ -31,7 +31,6 @@ public class ReadFile2Map {
                  matchFailMap.put(resKey,zhResMap.get(resKey));
              }
          }
-
          printResult(matchOkMap);
          printResult(matchFailMap);
          printResult(enResMap);

@@ -37,6 +37,7 @@
         <property name="cacheManager" ref="cacheManagerFactory"/>   
     </bean>
     -->
-    <!--<import resource="spring-mybatis.xml"/>-->
+    <import resource="spring-mybatis.xml"/>
+   <!-- <import resource="spring-shiro.xml"/>-->
 
 </beans>
