@@ -1,6 +1,6 @@
 package thread;
 
-public class Main {
+public class ThreadDemo {
     public static void main(String[] args){
         UpdateService us = new UpdateService();
         Thread t1 = new UpdateThread(us);
