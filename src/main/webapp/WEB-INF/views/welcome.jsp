@@ -9,11 +9,11 @@
 <body>
 <c:set var="pageName" value="welcome.jsp"/>
     ${pageName.substring(0,pageName.length()).toUpperCase()} <%=new Date().toLocaleString()%>
-    <shiro:hasPermission name="user:manager">
+    <%--<shiro:hasPermission name="user:manager">
         <a href="http://www.baidu.com">点击进入管理界面</a>
     </shiro:hasPermission>
     <shiro:lacksPermission name="user:manage">
         没有管理权限
-    </shiro:lacksPermission>
+    </shiro:lacksPermission>--%>
 </body>
 </html>
