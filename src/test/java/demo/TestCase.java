@@ -1,11 +1,52 @@
 package demo;
 
+import cn.suqc.dao.AllDao;
+import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.google.common.collect.Lists;
+import net.sf.json.JSONObject;
+import net.sf.json.JsonConfig;
+import net.sf.json.util.CycleDetectionStrategy;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.*;
-
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = {"classpath:spring/spring-core.xml","classpath:spring/spring-mybatis.xml"})
 public class TestCase {
+    @Autowired
+    AllDao allDao;
+    @Test
+    public void test5(){
+        Map<String,Map<String,String>> data = allDao.getAllMap(null,new PageBounds());
+        JsonConfig jsonConfig = new JsonConfig();
+        // 排除,避免循环引用 There is a cycle in the hierarchy!
+        jsonConfig.setCycleDetectionStrategy(CycleDetectionStrategy.LENIENT);
+        jsonConfig.setIgnoreDefaultExcludes(true);
+        jsonConfig.setAllowNonStringKeys(true);
+        System.out.println(JSONObject.fromObject(data,jsonConfig));
+    }
+    @Test
+    public void test4(){
+        boolean fund = false;
+        for(int i=0;i<10;i++){
+            if(i%2==0) {
+                for(int j=0;j<5;j++) {
+                    for(int k=0;k<3;k++) {
+                        if(k==4) {
+                            System.out.println("i="+i+",j="+j+",k="+k);
+                            fund = true;
+                            break;
+                        }
+                    }
+                    if(fund) break;
+                }
+            }
+            fund = false;
+        }
+    }
     @Test
     public void test3(){
         Long n = new Long(10L);
