@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.suqc.dao.ClazzDao">
+    <!-- 方法1   一对一  一对多 关联映射 -->
+    <resultMap id="clazz1" type="cn.suqc.entity.Clazz">
+        <id property="id" column="c_id"></id>
+        <result property="name" column="c_name"></result>
+        <!-- 一对一 -->
+        <association property="teacher" javaType="cn.suqc.entity.Teacher">
+            <result property="id" column="t_id"></result>
+            <result property="name" column="t_name"></result>
+        </association>
+        <!-- 一对多 -->
+        <collection property="students" ofType="cn.suqc.entity.Student">
+            <result property="id" column="s_id"></result>
+            <result property="name" column="s_name"></result>
+        </collection>
+    </resultMap>
+    <!-- 方法2 一对一 一对多关联映射 -->
+    <resultMap id="clazz2" type="cn.suqc.entity.Clazz">
+        <id property="id" column="c_id"></id>
+        <result property="name" column="c_name"/>
+        <association property="teacher" column="t_id"  select="selectTeacherById"/>
+        <collection property="students" ofType="cn.suqc.entity.Student" column="c_id" select="selectStudentByClazzId"/>
+    </resultMap>
+
+    <select id="queryClassById1" parameterType="int" resultMap="clazz1">
+        SELECT * FROM class c,teacher t,student s WHERE c.c_id = s.c_id AND c.`t_id` = t.`t_id` AND c.`c_id` = #{id}
+    </select>
+
+    <select id="queryClassById2" parameterType="int" resultMap="clazz2" >
+        select * from class where c_id = #{id}
+    </select>
+
+    <select id="selectTeacherById" parameterType="int" resultType="cn.suqc.entity.Teacher">
+        select t_id `id`,t_name `name` from teacher where t_id = #{id}
+        </select>
+
+<select id="selectStudentByClazzId" parameterType="java.lang.Integer" resultType="cn.suqc.entity.Student">
+select s_id `id`,s_name as `name` from student where c_id = #{id}
+</select>
+        </mapper>
