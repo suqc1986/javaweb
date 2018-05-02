@@ -22,7 +22,7 @@
         <id property="id" column="c_id"></id>
         <result property="name" column="c_name"/>
         <association property="teacher" column="t_id"  select="selectTeacherById"/>
-        <collection property="students" ofType="cn.suqc.entity.Student" column="c_id" select="selectStudentByClazzId"/>
+        <collection property="students" column="c_id" select="selectStudentByClazzId"/>
     </resultMap>
 
     <select id="queryClassById1" parameterType="int" resultMap="clazz1">
@@ -37,7 +37,7 @@
         select t_id `id`,t_name `name` from teacher where t_id = #{id}
         </select>
 
-<select id="selectStudentByClazzId" parameterType="java.lang.Integer" resultType="cn.suqc.entity.Student">
-select s_id `id`,s_name as `name` from student where c_id = #{id}
-</select>
-        </mapper>
+    <select id="selectStudentByClazzId" parameterType="java.lang.Integer" resultType="cn.suqc.entity.Student">
+        select s_id `id`,s_name as `name` from student where c_id = #{id}
+    </select>
+</mapper>
