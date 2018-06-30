@@ -1,6 +1,7 @@
 package demo;
 
 import cn.suqc.dao.AllDao;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.google.common.collect.Lists;
@@ -17,6 +18,18 @@ import java.util.*;
 public class TestCase {
     @Autowired
     AllDao allDao;
+    @Test
+    public void test6(){
+        String jsonStr = "{\"美国\":[\"NEW YORK STATE DEPT HLTH\",\"NIH\",\"NEURAL STEM CELL INST\",\"UNIV TEXAS MED BRANCH\",\"SUNY ALBANY\"],\"中国\":[\"广东海洋大学\",\"广州医科大学\"]}";
+        JSONObject json = JSONObject.parseObject(jsonStr);
+        for(Map.Entry<String,Object> entry:json.entrySet()){
+            System.out.println(entry.getKey()+"-->"+entry.getValue());
+            JSONArray array = JSONArray.parseArray(entry.getValue().toString());
+            for(int i=0;i<array.size();i++){
+                System.out.println(array.get(i));
+            }
+        }
+    }
     @Test
     public void test5(){
         Map<String,Map<String,String>> data = allDao.getAllMap(null,new PageBounds());
