@@ -21,13 +21,13 @@
 
     <aop:aspectj-autoproxy proxy-target-class="true"/>
 
-   <!--
-   <bean id="cacheManagerFactory" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
-      <property name="configLocation" value="classpath:config/ehcache.xml"/>  
-   </bean>
-   -->
+    <!--
+    <bean id="cacheManagerFactory" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+       <property name="configLocation" value="classpath:config/ehcache.xml"/>
+    </bean>
+    -->
 
-   <!--<cache:annotation-driven cache-manager="cacheManager"/> -->
+    <!--<cache:annotation-driven cache-manager="cacheManager"/> -->
 
     <!--
     <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
@@ -35,6 +35,6 @@
     </bean>
     -->
     <import resource="spring-mybatis.xml"/>
-   <!-- <import resource="spring-shiro.xml"/>-->
+    <!-- <import resource="spring-shiro.xml"/>-->
 
 </beans>
