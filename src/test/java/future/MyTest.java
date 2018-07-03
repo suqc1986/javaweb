@@ -5,8 +5,6 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
-import static sun.swing.SwingUtilities2.submit;
-
 public class MyTest {
     public static void main(String[] args)throws Exception{
         FutrueTask task = new FutrueTask();
