@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.suqc.dao.AreasDao">
+   <resultMap type="cn.suqc.entity.Areas" id="Areas">
+      <result property="id" column="id" />
+      <result property="cityCode" column="city_code" />
+      <result property="areaName" column="area_name" />
+      <result property="areaCode" column="area_code" />
+   </resultMap>
+
+   <select id="query" resultMap="Areas" parameterType="map">
+      select * from t_dict_areas
+      <trim prefix="where" prefixOverrides="and|or">
+         <if test="cityCode != null and cityCode != ''">
+            and city_code = #{cityCode}
+         </if>
+      </trim>
+   </select>
+</mapper>

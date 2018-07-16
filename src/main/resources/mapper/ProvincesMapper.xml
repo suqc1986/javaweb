@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.suqc.dao.ProvincesDao">
+   <resultMap type="cn.suqc.entity.Provinces" id="Provinces">
+      <result property="id" column="id" />
+      <result property="provinceCode" column="province_code" />
+      <result property="provinceName" column="province_name" />
+      <collection property="citiesList" select="getCitiesByCode" ofType="cn.suqc.entity.Cities" column="province_code"></collection>
+   </resultMap>
+
+   <resultMap type="cn.suqc.entity.Provinces" id="Provinces1">
+      <result property="id" column="id" />
+      <result property="provinceCode" column="province_code" />
+      <result property="provinceName" column="province_name" />
+   </resultMap>
+
+   <select id="queryProvinceByCode" resultMap="Provinces" parameterType="string">
+      select * from t_dict_provinces where province_code = #{provinceCode}
+   </select>
+
+   <select id="getCitiesByCode" parameterType="string" resultType="cn.suqc.entity.Cities">
+      select * from t_dict_cities where province_code = #{provinceCode}
+   </select>
+
+   <select id="query" resultMap="Provinces1" parameterType="map">
+      select * from t_dict_provinces
+   </select>
+</mapper>

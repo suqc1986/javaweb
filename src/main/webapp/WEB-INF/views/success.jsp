@@ -8,9 +8,6 @@
     <title>Title</title>
 </head>
 <body>
-    <form action="${pageContext.request.contextPath}/file/upload.shtml" method="post" enctype="multipart/form-data">
-        <input type="file" name="uploadFile"/>
-        <input type="submit" value="submit"/>
-    </form>
+    上传成功
 </body>
 </html>

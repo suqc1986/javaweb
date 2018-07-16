@@ -38,7 +38,6 @@ public class CustomRealm extends AuthorizingRealm {
 
     /***
      * 授权
-     * @param principalCollection
      * @return
      */
     @Override

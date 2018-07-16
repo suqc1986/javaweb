@@ -21,8 +21,6 @@
     </bean>
 
     <!-- 配置资源 -->
-    <mvc:resources location="/static/css" mapping="/css/**"></mvc:resources>
-    <mvc:resources location="/static/js" mapping="/js/**"></mvc:resources>
-    <mvc:resources location="/static/img" mapping="/img/**"></mvc:resources>
+    <mvc:resources location="/static/" mapping="/static/**" cache-period="31536000"></mvc:resources>
 
 </beans>

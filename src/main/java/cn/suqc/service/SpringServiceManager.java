@@ -29,6 +29,7 @@ public class SpringServiceManager implements ApplicationContextAware{
         }
         return wac;
     }
+
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         SpringServiceManager.applicationContext = applicationContext;

@@ -5,7 +5,6 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.google.common.collect.Lists;
-import org.apache.catalina.manager.HTMLManagerServlet;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -107,8 +106,5 @@ public class TestCase {
         for(Date d:list){
             System.out.println(d.toLocaleString());
         }
-    }
-    public void test0(){
-        HTMLManagerServlet serlvet;
     }
 }
